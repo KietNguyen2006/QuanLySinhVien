@@ -5,6 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<SinhVienRepository>();
+builder.Services.AddSingleton<LopRepository>();
+builder.Services.AddSingleton<MonHocRepository>();
+builder.Services.AddSingleton<GiaoVienRepository>();
+builder.Services.AddSingleton<DiemRepository>();
+builder.Services.AddSingleton<AccountRepository>();
 
 builder.Services.AddControllers();
 

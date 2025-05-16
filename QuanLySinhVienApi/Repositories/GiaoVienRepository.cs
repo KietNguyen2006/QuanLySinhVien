@@ -57,5 +57,18 @@ namespace QuanLySinhVienApi.Repositories
                 return db.Execute("DELETE FROM GiaoVien WHERE GiaoVienId = @Id", new { Id = id });
             }
         }
+
+        public IEnumerable<Teacher> GetPagingFilteringSearching(int pageIndex, int pageSize, string keyword)
+        {
+            using (var connection = Connection)
+            {
+                var result = connection.Query<Teacher>(
+                    "sp_GetGiaoViens_Paging_Filter_Search",
+                    new { PageIndex = pageIndex, PageSize = pageSize, Keyword = keyword },
+                    commandType: CommandType.StoredProcedure
+                );
+                return result;
+            }
+        }
     }
 }

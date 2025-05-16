@@ -57,5 +57,18 @@ namespace QuanLySinhVienApi.Repositories
                 return db.Execute("DELETE FROM MonHoc WHERE MonHocId = @Id", new { Id = id });
             }
         }
+
+        public IEnumerable<Subject> GetPagingFilteringSearching(int pageIndex, int pageSize, string keyword)
+        {
+            using (var connection = Connection)
+            {
+                var result = connection.Query<Subject>(
+                    "sp_GetMonHocs_Paging_Filter_Search",
+                    new { PageIndex = pageIndex, PageSize = pageSize, Keyword = keyword },
+                    commandType: CommandType.StoredProcedure
+                );
+                return result;
+            }
+        }
     }
 }

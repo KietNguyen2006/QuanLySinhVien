@@ -57,5 +57,18 @@ namespace QuanLySinhVienApi.Repositories
                 return db.Execute("DELETE FROM SinhVien WHERE SinhVienId = @Id", new { Id = id });
             }
         }
+
+        public IEnumerable<SinhVien> GetPagingFilteringSearching(int pageIndex, int pageSize, string keyword, int? lopId)
+        {
+            using (var connection = Connection)
+            {
+                var result = connection.Query<SinhVien>(
+                    "sp_GetSinhViens_Paging_Filter_Search",
+                    new { PageIndex = pageIndex, PageSize = pageSize, Keyword = keyword, LopId = lopId },
+                    commandType: CommandType.StoredProcedure
+                );
+                return result;
+            }
+        }
     }
 }

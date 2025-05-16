@@ -57,5 +57,18 @@ namespace QuanLySinhVienApi.Repositories
                 return db.Execute("DELETE FROM Lop WHERE LopId = @Id", new { Id = id });
             }
         }
+
+        public IEnumerable<Class> GetPagingFilteringSearching(int pageIndex, int pageSize, string keyword)
+        {
+            using (var connection = Connection)
+            {
+                var result = connection.Query<Class>(
+                    "sp_GetLops_Paging_Filter_Search",
+                    new { PageIndex = pageIndex, PageSize = pageSize, Keyword = keyword },
+                    commandType: CommandType.StoredProcedure
+                );
+                return result;
+            }
+        }
     }
 }

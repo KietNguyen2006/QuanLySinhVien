@@ -30,6 +30,13 @@ namespace QuanLySinhVienApi.Controllers
             return Ok(sv);
         }
 
+        [HttpGet("paging")]
+        public IActionResult GetPaging([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10, [FromQuery] string keyword = null, [FromQuery] int? lopId = null)
+        {
+            var result = _repo.GetPagingFilteringSearching(pageIndex, pageSize, keyword, lopId);
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult Create(SinhVien sv)
         {
